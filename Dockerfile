@@ -1,7 +1,9 @@
-FROM node:22-alpine
+FROM node:24-alpine
 WORKDIR /app
-COPY package.json server.mjs ./
-COPY public ./public
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 ENV NODE_ENV=production
-EXPOSE 3000
+EXPOSE 8080
 CMD ["node", "server.mjs"]

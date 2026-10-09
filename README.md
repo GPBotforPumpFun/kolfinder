@@ -1,22 +1,25 @@
-# KOL Finder
+# EXCHANGE
 
-MSL research workspace by Lucid Logic. Node 22+, no package dependencies or API keys.
+Anonymous breakup trading cards and a wallet-assisted pump.fun launchpad. Built in the former KOL Finder repository; prior app remains in git history.
 
-Run `npm start` and open http://localhost:3000. `npm test` runs evidence aggregation tests.
+## Run
+
+Node 24 or newer. `npm ci`, `npm run build`, `npm start`. `npm test` runs the API and transaction validation tests.
 
 ## Features
-- Therapeutic-area selection, starter expert directory and custom author research.
-- Animated geographic collaboration atlas. Connections come from sampled shared authorship.
-- Live Europe PMC papers restricted to disease terms in titles and abstracts of PubMed-indexed records, plus ClinicalTrials.gov registry context.
-- Literature-based author discovery, source-linked collaborator cards, meeting preparation.
-- Browser-local notes, shortlist, two/three expert comparison and text brief export.
-- Responsive layout and reduced-motion support.
 
-## Evidence limits
-Expert queries match surname and initials and require disambiguation. Starter directory affiliations need verification; these are not certified profiles. The app does not present a definitive KOL roster, career publication counts or an influence ranking. Discovery uses the 100 most recent query matches; profiles use 50. Registry name mentions do not establish investigator status. Recognized institution locations are approximate and inferred from publication affiliations. Unknown institutions are not mapped. Trial, paper and citation counts show their scope in the UI.
+Six illustrated anonymous alter egos, category filters and search, three-step creator with live preview, local drafts, downloadable cards, share links, wallet-signed story publishing, one reaction per browser visitor, wallet-owned recovery updates, and report intake. Six fictional sample cards have no tokens, volumes or fees. A published story card is clearly distinct from a launched token.
 
-Sources are retrieved on demand, cached in memory for 15 minutes, with independent error handling. The app uses no LLM and does not generate clinical conclusions. Scientific prompts are templates drawn from paper titles. No private datasets, Open Payments, grants, CRM, auth, shared storage or contact enrichment are connected. Saved profiles and notes are browser-local. Do not store sensitive information.
+Launches use PumpPortal's local transaction API. The visitor creates a mint keypair in their browser, signs the mint, and reviews/signs/sends using Phantom or Solflare. No private keys are sent to this server. Metadata/art are stored immutably on the app's persistent volume and served publicly over HTTPS, not IPFS. Moving the domain will require keeping these URLs available. The server validates the create instruction's mint, name, ticker, URI, creator, signer set and fee mode. A card is listed as live only after Solana returns a successful confirmed transaction whose serialized message matches the prepared transaction. No launches or purchases are performed by the application operator.
 
-Map boundaries: Natural Earth 1:110m public-domain country data via nvkelso/natural-earth-vector. Typography optionally loads Google Fonts; system font fallback is included.
+The optional initial buy defaults to zero. Priority fee is 0.00005 SOL; buy slippage is 10%. Wallets show network/rent/protocol costs before signing. Standard creator fees go to the connected creator wallet. EXCHANGE charges no platform fee. Fee income is not tracked by this application, and goal amounts do not imply funds raised.
 
-Deploy: repository-linked Railway service, Dockerfile build, `/health` healthcheck, platform PORT respected. Future extensions: licensed KOL roster/imports, ORCID disambiguation, data refresh monitoring, authentication, database and team/territory workflows.
+## Production
+
+Docker builds the browser wallet SDK and runs Node 24. Railway volume `/data` holds SQLite via `RAILWAY_VOLUME_MOUNT_PATH`. A single replica is required. Optional `STORAGE_PATH`, `PORT`, `PUBLIC_URL` and `SOLANA_RPC_URL` configure storage, server port, canonical metadata origin, and a dedicated mainnet RPC. Default RPC is Solana's public mainnet endpoint, which may rate limit. `/health` checks process availability. Keep the volume backed up.
+
+Signed wallet challenges expire in five minutes and are single-use. HttpOnly SameSite sessions expire in one hour. Browser-local launch confirmation records preserve submitted signatures across refreshes. Responses escape public text, anonymous text rejects handles/links/contact patterns, and all artwork comes from supplied illustrations. No detector can guarantee anonymity, so house rules and reports are also present. Reaction limits are browser based, not Sybil resistant.
+
+Reports are retained in the `reports` SQLite table for operator review. To hide a reported card: back up the DB, inspect the report and story, then `UPDATE stories SET status='hidden' WHERE id='reviewed-card-id';`. Its public metadata remains available if already referenced on-chain. Report intake does not imply automatic moderation. Add an operator dashboard before a broad public campaign.
+
+Primary integration references: https://pumpportal.fun/creation/ and https://github.com/pump-fun/pump-public-docs/tree/main/idl. Protocol changes may require updating validation and transaction generation.
