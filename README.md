@@ -7,7 +7,7 @@ Run `npm start` and open http://localhost:3000. `npm test` runs evidence aggrega
 ## Features
 - Therapeutic-area selection, starter expert directory and custom author research.
 - Animated geographic collaboration atlas. Connections come from sampled shared authorship.
-- Live Europe PMC papers and ClinicalTrials.gov registry context.
+- Live Europe PMC papers restricted to disease terms in titles and abstracts of PubMed-indexed records, plus ClinicalTrials.gov registry context.
 - Literature-based author discovery, source-linked collaborator cards, meeting preparation.
 - Browser-local notes, shortlist, two/three expert comparison and text brief export.
 - Responsive layout and reduced-motion support.
